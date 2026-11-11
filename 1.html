@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>拾悦珠宝 SEFELIZ · 虚拟试戴体验馆</title>
+<style>
+  :root{
+    --ink:#22301f;
+    --ink-soft:#5a6754;
+    --paper:#f6f4ee;
+    --card:#ffffff;
+    --gold:#a8842c;
+    --gold-soft:#e9dfc8;
+    --green:#1f4d3d;
+    --green-deep:#143528;
+    --line:#e3ded2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.7;
+    font-size:16px;
+  }
+  h1,h2,h3,.serif{font-family:Georgia,"Songti SC","SimSun",serif;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+
+  /* ---------- hero ---------- */
+  header.hero{
+    background:linear-gradient(160deg,var(--green-deep) 0%,var(--green) 62%,#2b6350 100%);
+    color:#f4f1e6;
+    padding:64px 0 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  /* 星光粒子 */
+  .stars,.stars::after{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:
+      radial-gradient(1.5px 1.5px at 12% 20%, rgba(244,241,230,.9) 50%, transparent 51%),
+      radial-gradient(1px 1px at 28% 64%, rgba(232,207,143,.8) 50%, transparent 51%),
+      radial-gradient(2px 2px at 45% 34%, rgba(244,241,230,.7) 50%, transparent 51%),
+      radial-gradient(1px 1px at 60% 78%, rgba(244,241,230,.9) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 73% 18%, rgba(232,207,143,.75) 50%, transparent 51%),
+      radial-gradient(1px 1px at 86% 52%, rgba(244,241,230,.8) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 94% 30%, rgba(244,241,230,.7) 50%, transparent 51%),
+      radial-gradient(1px 1px at 8% 84%, rgba(232,207,143,.7) 50%, transparent 51%),
+      radial-gradient(2px 2px at 36% 90%, rgba(244,241,230,.6) 50%, transparent 51%),
+      radial-gradient(1px 1px at 66% 8%, rgba(244,241,230,.75) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 52% 58%, rgba(244,241,230,.55) 50%, transparent 51%),
+      radial-gradient(1px 1px at 20% 44%, rgba(232,207,143,.6) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 80% 70%, rgba(244,241,230,.6) 50%, transparent 51%);
+    animation:twinkle 3.6s ease-in-out infinite alternate;
+  }
+  .stars::after{
+    content:"";
+    transform:scaleX(-1);
+    animation-delay:1.8s;
+    opacity:.7;
+  }
+  @keyframes twinkle{
+    from{opacity:.35;}
+    to{opacity:1;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .stars,.stars::after{animation:none;}
+  }
+  .logo-plaque{
+    display:inline-block;
+    background:#fff;
+    border-radius:6px;
+    padding:14px 20px;
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+    margin-bottom:26px;
+  }
+  .logo-plaque img{display:block;height:56px;width:auto;}
+  .brand-sub{
+    display:block;
+    margin-top:10px;
+    font-size:13px;
+    letter-spacing:.4em;
+    color:rgba(244,241,230,.75);
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;right:-80px;top:-80px;width:320px;height:320px;
+    border:1px solid rgba(233,223,200,.35);
+    border-radius:50%;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute;right:-40px;top:-40px;width:240px;height:240px;
+    border:1px solid rgba(233,223,200,.25);
+    border-radius:50%;
+  }
+  .kicker{
+    display:inline-block;
+    font-size:13px;letter-spacing:.35em;
+    color:var(--gold-soft);
+    border:1px solid rgba(233,223,200,.45);
+    padding:6px 14px 6px 18px;
+    margin-bottom:24px;
+  }
+  header.hero h1{
+    font-size:clamp(30px,5.2vw,50px);
+    line-height:1.3;
+    font-weight:400;
+    max-width:640px;
+  }
+  header.hero h1 em{font-style:normal;color:#e8cf8f;}
+  header.hero p.lead{
+    margin-top:18px;max-width:560px;
+    color:rgba(244,241,230,.82);
+    font-size:17px;
+  }
+  .hero-cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:44px;padding:10px 26px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:15px;letter-spacing:.06em;
+    transition:opacity .2s;
+  }
+  .btn:hover{opacity:.88;}
+  .btn-gold{background:var(--gold);color:#fff;}
+  .btn-ghost{border:1px solid rgba(244,241,230,.55);color:#f4f1e6;}
+
+  /* ---------- steps ---------- */
+  section{padding:56px 0;}
+  .sec-head{margin-bottom:32px;}
+  .sec-head .no{
+    font-family:Georgia,"Songti SC",serif;
+    color:var(--gold);
+    font-size:14px;letter-spacing:.3em;
+  }
+  .sec-head h2{font-size:26px;font-weight:400;margin-top:6px;}
+  .sec-head p{color:var(--ink-soft);margin-top:8px;max-width:640px;}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .step{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:26px 22px;
+    position:relative;
+  }
+  .step .n{
+    font-family:Georgia,"Songti SC",serif;
+    font-size:34px;color:var(--gold);
+    line-height:1;
+  }
+  .step h3{font-size:18px;margin:12px 0 8px;font-weight:400;}
+  .step p{font-size:14.5px;color:var(--ink-soft);}
+
+  /* ---------- try-on demo ---------- */
+  .demo{
+    background:var(--green-deep);
+    color:#eef0e6;
+  }
+  .demo .sec-head h2{color:#f4f1e6;}
+  .demo .sec-head p{color:rgba(238,240,230,.7);}
+  .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+  .demo-pane{
+    background:rgba(255,255,255,.06);
+    border:1px dashed rgba(238,240,230,.4);
+    min-height:320px;
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:12px;
+    padding:24px;text-align:center;
+  }
+  .demo-pane img{max-width:100%;max-height:360px;object-fit:contain;display:block;}
+  .demo-hint{color:rgba(238,240,230,.65);font-size:14px;}
+  .demo-pane input[type=file]{display:none;}
+  .file-btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:44px;padding:10px 26px;
+    background:var(--gold);color:#fff;border:none;
+    font-size:15px;cursor:pointer;letter-spacing:.06em;
+  }
+  .pick-note{font-size:13.5px;color:rgba(238,240,230,.55);margin-top:10px;}
+  .ai-note{
+    margin-top:26px;
+    border-top:1px solid rgba(238,240,230,.2);
+    padding-top:18px;
+    font-size:13.5px;
+    color:rgba(238,240,230,.62);
+    display:flex;gap:10px;align-items:flex-start;
+  }
+  .ai-note .tag{
+    flex:none;
+    border:1px solid rgba(238,240,230,.4);
+    padding:2px 8px;font-size:12px;letter-spacing:.1em;
+  }
+
+  /* ---------- gallery ---------- */
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;}
+  .tab{
+    min-height:44px;padding:8px 22px;
+    border:1px solid var(--line);background:var(--card);
+    font-size:14.5px;cursor:pointer;letter-spacing:.08em;
+    color:var(--ink-soft);
+    transition:all .2s;
+  }
+  .tab[aria-selected="true"]{
+    background:var(--green);border-color:var(--green);color:#fff;
+  }
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    display:flex;flex-direction:column;
+    transition:box-shadow .25s,transform .25s;
+  }
+  .card:hover{box-shadow:0 10px 30px rgba(34,48,31,.1);transform:translateY(-2px);}
+  .card .ph{aspect-ratio:3/2;overflow:hidden;background:#efece4;}
+  .card img{width:100%;height:100%;object-fit:cover;display:block;}
+  .card .info{padding:16px 18px 18px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;}
+  .card .name{font-size:15.5px;}
+  .card .price{font-size:13.5px;color:var(--gold);white-space:nowrap;}
+  .card .price.empty{color:#a9a396;}
+  .card:focus-within{outline:2px solid var(--gold);outline-offset:2px;}
+
+  /* ---------- consult ---------- */
+  .consult{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:38px 34px;
+    display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;
+  }
+  .consult h3{font-size:22px;font-weight:400;}
+  .consult p{color:var(--ink-soft);margin-top:8px;font-size:15px;max-width:560px;}
+  .consult .tel{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:48px;padding:12px 30px;
+    background:var(--green);color:#fff;
+    text-decoration:none;font-size:16px;letter-spacing:.05em;
+    white-space:nowrap;
+  }
+  .consult .tel:hover{opacity:.9;}
+  .consult .tel small{display:block;font-size:12px;font-weight:400;opacity:.8;text-align:center;}
+
+  footer{
+    padding:36px 0 48px;
+    color:#a9a396;font-size:13px;text-align:center;
+  }
+  footer .brandline{
+    width:44px;height:1px;background:var(--gold);
+    margin:0 auto 16px;
+  }
+
+  @media (max-width:820px){
+    .steps,.grid{grid-template-columns:1fr 1fr;}
+    .demo-grid{grid-template-columns:1fr;}
+    .consult{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .steps,.grid{grid-template-columns:1fr;}
+    section{padding:44px 0;}
+    header.hero{padding:48px 0 44px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body data-visualization-style="lifestyle-consumption">
+
+<header class="hero">
+  <div class="stars"></div>
+  <div class="wrap">
+    <span class="logo-plaque"><img src="https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_483c0d22f0924780a3caefb74b2d7582.png" alt="SEFELIZ 拾悦珠宝"></span>
+    <span class="kicker">VIRTUAL TRY-ON</span>
+    <h1>戴上才知道，<br>这条项链是不是<em>为你而生</em>。</h1>
+    <p class="lead">拾悦珠宝 · 上传一张照片，就能在手机上看到每件珠宝戴在你身上的样子。看中哪一件，一个电话，顾问为你留货。</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#gallery">先逛逛产品</a>
+      <a class="btn btn-ghost" href="#consult">电话咨询</a>
+    </div>
+  </div>
+</header>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no">HOW IT WORKS</span>
+      <h2>三步，看到珠宝上身的样子</h2>
+      <p>不用到店、不用排队，先在家把心水的款式挑出来。</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n">壹</span>
+        <h3>选一款心动珠宝</h3>
+        <p>在下方产品馆里挑选耳饰或项链，点开看看细节。</p>
+      </div>
+      <div class="step">
+        <span class="n">贰</span>
+        <h3>传一张日常照片</h3>
+        <p>正面、光线好的照片效果最佳，照片仅用于试戴预览。</p>
+      </div>
+      <div class="step">
+        <span class="n">叁</span>
+        <h3>看效果，电话留货</h3>
+        <p>看到试戴效果满意的话，联系徐女士，实物等你到店试戴确认。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="demo" id="demo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no">TRY-ON DEMO</span>
+      <h2>试一个：选一件珠宝，传一张照片</h2>
+      <p>点选下面任何一件产品，再上传照片，看看预览效果。</p>
+    </div>
+    <div class="demo-grid">
+      <div class="demo-pane" id="photoPane">
+        <span class="demo-hint" id="photoHint">还没有照片</span>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+          <label class="file-btn" for="photoInput">从相册上传</label>
+          <input type="file" id="photoInput" accept="image/*">
+          <label class="file-btn" for="cameraInput" style="background:transparent;border:1px solid rgba(238,240,230,.5);">打开相机拍照</label>
+          <input type="file" id="cameraInput" accept="image/*" capture="user">
+        </div>
+        <span class="pick-note" id="pickedProduct">当前未选产品 · 请先在下方产品馆点选一件</span>
+      </div>
+      <div class="demo-pane" id="resultPane">
+        <span class="demo-hint">试戴预览会出现在这里</span>
+      </div>
+    </div>
+    <div class="ai-note">
+      <span class="tag">AI 生成</span>
+      <span>正式版试戴效果图由人工智能合成，按国家规定带有 AI 生成内容标识；效果图仅供款式参考，实物色泽与佩戴效果以到店试戴为准。照片仅用于生成预览，不会另作他用。</span>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no">COLLECTION</span>
+      <h2>产品馆 · 18 件在售</h2>
+      <p>点击产品即可选中试戴；部分款式价格可咨询顾问。</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="产品分类">
+      <button class="tab" role="tab" aria-selected="true" data-cat="all">全部</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="earring">耳饰</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="necklace">项链</button>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section id="consult">
+  <div class="wrap">
+    <div class="consult">
+      <div>
+        <h3 class="serif">看中了？打个电话就好</h3>
+        <p>款式留货、价格咨询、到店预约试戴，都可以直接联系顾问徐女士。也欢迎加企业微信，发照片获得专属试戴效果。</p>
+      </div>
+      <a class="tel" href="tel:18670726789"><small>咨询顾问 徐女士</small>18670726789</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-bottom:14px;">
+    <path d="M7 3h10l4 6-9 12L3 9l4-6z" fill="#a63a4b" stroke="#7d2738" stroke-width="1"/>
+    <path d="M3 9h18M7 3l2.5 6L12 21M17 3l-2.5 6L12 21" stroke="#e59aa5" stroke-width="0.8" fill="none"/>
+  </svg>
+  <p>拾悦珠宝 SEFELIZ · 虚拟试戴线上体验 —— 试戴效果图由 AI 生成，仅供参考；实物以门店为准。</p>
+</footer>
+
+<script>
+const PRODUCTS = [
+  {id:"prod-0018",name:"项链8",cat:"necklace",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_c6f259f1874746968185df61b94a5e76.jpg"},
+  {id:"prod-0017",name:"耳钉10",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_67fec978cc1b4e16ab73e47dfa5d7a3c.jpg"},
+  {id:"prod-0016",name:"耳钉9",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_ebffcc3b16d6463e9283b9ed31820535.jpg"},
+  {id:"prod-0015",name:"项链7",cat:"necklace",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_f37b2684a02848d9ba8490d634ffa8d1.jpg"},
+  {id:"prod-0014",name:"耳钉8",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_e1581ab3eb8e4812b113ac4c2f8b9015.jpg"},
+  {id:"prod-0013",name:"耳钉7",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_086bf23c2b104f809b47cb95c4d07f5a.jpg"},
+  {id:"prod-0012",name:"耳钉6",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_9cffbb5427c44690990a49a43c7fa1e6.jpg"},
+  {id:"prod-0011",name:"耳钉5",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_77356f59a73a46ffa12b811f7b84c09d.jpg"},
+  {id:"prod-0010",name:"项链6",cat:"necklace",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_7fede084a30a460088430f1a5f575a06.jpg"},
+  {id:"prod-0009",name:"项链5",cat:"necklace",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_fae1b63a5b7d471c867998a34732d6de.jpg"},
+  {id:"prod-0008",name:"项链4",cat:"necklace",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_2bab571c4f8f4c8eb79789e5d1b3eb0f.jpg"},
+  {id:"prod-0007",name:"耳钉4",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_212fb7c10d7542d4b81fbe36a119ee24.jpg"},
+  {id:"prod-0006",name:"耳钉3",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_c4eff8b1cb544c3e9d2fa81015bcc450.jpg"},
+  {id:"prod-0005",name:"项链3",cat:"necklace",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_9eb035635a204fbe84b9b8709acec249.jpg"},
+  {id:"prod-0004",name:"耳钉2",cat:"earring",price:"",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_b0648d48aef542b6b1f019f7000cd6f8.jpg"},
+  {id:"prod-0003",name:"祖母绿项链",cat:"necklace",price:"¥20000",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_77a260635bf840cdb8464729f9bf7f0f.jpg"},
+  {id:"prod-0002",name:"翡翠耳钉",cat:"earring",price:"¥10000",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_5cab04ec1a744b8f91700a7f025c8701.jpg"},
+  {id:"prod-0001",name:"产品1",cat:"necklace",price:"¥10000",img:"https://mdn.alipayobjects.com/asap_serivce/uri/file/as/upload_image_2618a52ab8fb41709b17ec385cf1e605.jpg"}
+];
+const CAT_NAME = {earring:"耳饰",necklace:"项链"};
+
+const grid = document.getElementById('productGrid');
+let currentCat = 'all';
+let selected = null;
+let photoURL = null;
+
+function renderGrid(){
+  const list = PRODUCTS.filter(p => currentCat==='all' || p.cat===currentCat);
+  grid.innerHTML = '';
+  list.forEach(p => {
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'card';
+    card.setAttribute('aria-label','选中 ' + p.name + ' 进行试戴');
+    card.innerHTML =
+      '<span class="ph"><img loading="lazy" src="' + p.img + '" alt="' + p.name + '"></span>' +
+      '<span class="info"><span class="name">' + p.name + ' · ' + CAT_NAME[p.cat] + '</span>' +
+      (p.price ? '<span class="price">' + p.price + '</span>' : '<span class="price empty">价格请咨询</span>') + '</span>';
+    card.addEventListener('click', () => {
+      selected = p;
+      document.getElementById('pickedProduct').textContent = '已选：' + p.name + ' · 传一张照片看看效果';
+      document.getElementById('photoInput').click();
+      renderResult();
+    });
+    grid.appendChild(card);
+  });
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    currentCat = tab.dataset.cat;
+    document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t===tab ? 'true':'false'));
+    renderGrid();
+  });
+});
+
+document.getElementById('photoInput').addEventListener('change', handlePhoto);
+document.getElementById('cameraInput').addEventListener('change', handlePhoto);
+
+function handlePhoto(e){
+  const f = e.target.files && e.target.files[0];
+  if(!f) return;
+  if(photoURL) URL.revokeObjectURL(photoURL);
+  photoURL = URL.createObjectURL(f);
+  renderResult();
+}
+
+function renderResult(){
+  const pane = document.getElementById('resultPane');
+  if(photoURL && selected){
+    pane.innerHTML =
+      '<img src="' + photoURL + '" alt="上传的照片">' +
+      '<span class="demo-hint">已选「' + selected.name + '」 · 正式版将在此呈现 AI 试戴效果</span>';
+  } else if(photoURL){
+    pane.innerHTML =
+      '<img src="' + photoURL + '" alt="上传的照片">' +
+      '<span class="demo-hint">照片已收到 · 先在下方产品馆选一件珠宝</span>';
+  }
+}
+
+renderGrid();
+</script>
+</body>
+</html>
