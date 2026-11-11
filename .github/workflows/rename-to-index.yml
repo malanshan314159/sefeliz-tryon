@@ -1,0 +1,20 @@
+name: Rename uploaded page to index.html
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename file to index.html
+        run: |
+          git config user.name "malanshan314159"
+          git config user.email "malanshan314159@users.noreply.github.com"
+          git mv shi-yue-zhu-bao-sefeliz-xu-ni-shi-dai-ti-yan-guan.html index.html
+          git commit -m "Rename uploaded page to index.html"
+          git push
